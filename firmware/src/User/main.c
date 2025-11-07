@@ -10,6 +10,29 @@
 #include "gamepad.h"
 
 
+/*
+
+7pin miniDIN
+
+red = vcc
+black = gnd
+white = key rxd
+green = key txd
+blue = mouse data
+orange = ready
+
+USART1 (keyboard)
+PA9 = TX
+PA10 = RX
+
+UART2 (mouse)
+PA2 = TX
+PA3 = RX (not used)
+
+USART3 (printf)
+
+*/
+
 
 void IWDG_Feed_Init(u16 prer, u16 rlr)
 {
@@ -24,7 +47,8 @@ void IWDG_Feed_Init(u16 prer, u16 rlr)
 
 int main( void )
 {
-   // USART_Printf_Init( 115200 );
+	if (DEF_DEBUG_PRINTF)
+		USART_Printf_Init( 115200 );
     DUG_PRINTF( "SystemClk:%d\r\n", SystemCoreClock );
     Delay_Init( );
     TIM3_Init( 9, SystemCoreClock / 10000 - 1 );
@@ -39,6 +63,11 @@ int main( void )
     TIM2_Init();
     TIM4_Init();
     GPIO_Config();
+
+	// need to reinit USART after gpio init
+	if (DEF_DEBUG_PRINTF)
+		USART_Printf_Init( 115200 );
+
     InitMouse();
     IWDG_Feed_Init( IWDG_Prescaler_32, 4000 );
 

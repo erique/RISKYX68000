@@ -46,7 +46,7 @@ void EXTI15_10_IRQHandler(void)
 {
     if(EXTI_GetITStatus(EXTI_Line10) != RESET)
     {
-        ProcessScrollIRQ();
+        // ProcessScrollIRQ();
         EXTI_ClearITPendingBit(EXTI_Line10); /* Clear Flag */
     }
 }

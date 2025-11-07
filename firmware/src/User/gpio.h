@@ -4,42 +4,35 @@
 #include "ch32v20x_gpio.h"
 #include "ch32v20x_rcc.h"
 
-#define LED_Pin GPIO_Pin_14
-#define LED_GPIO_Port GPIOC
+// J7 pin header
+#define RDY_Pin GPIO_Pin_9      // this is the miniDIN-7 READY pin
+#define RDY_GPIO_Port GPIOB
+#define P2_Pin GPIO_Pin_8
+#define P2_GPIO_Port GPIOB
+#define P3_Pin GPIO_Pin_3
+#define P3_GPIO_Port GPIOB
+#define LED_Pin GPIO_Pin_15     // the blue LED on the miniCH32V203 devboard
+#define LED_GPIO_Port GPIOA
 
-#define RB_Pin GPIO_Pin_11
-#define RB_GPIO_Port GPIOB
+// DE-9 Gamepad
+#define UP_Pin GPIO_Pin_12
+#define UP_GPIO_Port GPIOB
+#define DN_Pin GPIO_Pin_13
+#define DN_GPIO_Port GPIOB
+#define LT_Pin GPIO_Pin_14
+#define LT_GPIO_Port GPIOB
+#define RT_Pin GPIO_Pin_8
+#define RT_GPIO_Port GPIOA
 
-#define MB_Pin GPIO_Pin_10
-#define MB_GPIO_Port GPIOB
+#define B1_Pin GPIO_Pin_15
+#define B1_GPIO_Port GPIOB
+#define B2_Pin GPIO_Pin_5
+#define B2_GPIO_Port GPIOB
 
-#define LB_Pin GPIO_Pin_15
-#define LB_GPIO_Port GPIOB
-
-#define RHQ_Pin GPIO_Pin_12
-#define RHQ_GPIO_Port GPIOB
-#define LVQ_Pin GPIO_Pin_13
-#define LVQ_GPIO_Port GPIOB
-
-
-
-#define BH_Pin GPIO_Pin_14
-#define BH_GPIO_Port GPIOB
-
-#define FV_Pin GPIO_Pin_8
-#define FV_GPIO_Port GPIOA
-
-#define KBD_DATA_GPIO_Port GPIOA
-#define KBD_DATA_Pin GPIO_Pin_11
-
-#define KBD_CLOCK_GPIO_Port GPIOA
-#define KBD_CLOCK_Pin GPIO_Pin_12
-
-#define KB_RESET_GPIO_Port GPIOA
-#define KB_RESET_GPIO_Pin GPIO_Pin_10
-
+// STROBE (out from x68k)
+#define STROBE_Pin GPIO_Pin_4
+#define STROBE_GPIO_Port GPIOB
 
 void GPIO_Config();
-
 
 #endif

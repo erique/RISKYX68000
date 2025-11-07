@@ -16,15 +16,18 @@ void GPIO_Config()
 
     /*Configure GPIO pin Output Level */
     GPIO_WriteBit(LED_GPIO_Port,LED_Pin, Bit_SET);
-    GPIO_WriteBit(RHQ_GPIO_Port, RHQ_Pin, Bit_RESET);
-    GPIO_WriteBit(LVQ_GPIO_Port, LVQ_Pin, Bit_RESET);
-    GPIO_WriteBit(BH_GPIO_Port, BH_Pin, Bit_RESET);
-    GPIO_WriteBit(FV_GPIO_Port, FV_Pin, Bit_RESET);
-    GPIO_WriteBit(LB_GPIO_Port, LB_Pin, Bit_SET);
-    GPIO_WriteBit(RB_GPIO_Port, RB_Pin, Bit_SET);
-    GPIO_WriteBit(KBD_DATA_GPIO_Port, KBD_DATA_Pin, Bit_SET);
-    GPIO_WriteBit(KBD_CLOCK_GPIO_Port, KBD_CLOCK_Pin,Bit_SET);
-    GPIO_WriteBit(KB_RESET_GPIO_Port,KB_RESET_GPIO_Pin,Bit_SET);
+
+    // DE-9
+    GPIO_WriteBit(UP_GPIO_Port, UP_Pin, Bit_RESET);
+    GPIO_WriteBit(DN_GPIO_Port, DN_Pin, Bit_RESET);
+    GPIO_WriteBit(LT_GPIO_Port, LT_Pin, Bit_RESET);
+    GPIO_WriteBit(RT_GPIO_Port, RT_Pin, Bit_RESET);
+    GPIO_WriteBit(B1_GPIO_Port, B1_Pin, Bit_SET);
+    GPIO_WriteBit(B2_GPIO_Port, B2_Pin, Bit_SET);
+
+    // GPIO_WriteBit(KBD_DATA_GPIO_Port, KBD_DATA_Pin, Bit_SET);
+    // GPIO_WriteBit(KBD_CLOCK_GPIO_Port, KBD_CLOCK_Pin,Bit_SET);
+    // GPIO_WriteBit(KB_RESET_GPIO_Port,KB_RESET_GPIO_Pin,Bit_SET);
 
     GPIO_WriteBit(GPIOA,GPIO_Pin_13,Bit_RESET);
     GPIO_WriteBit(GPIOA,GPIO_Pin_14,Bit_RESET);
@@ -38,55 +41,43 @@ void GPIO_Config()
     GPIO_Init(LED_GPIO_Port, &GPIO_InitStructure);
 
 
-    GPIO_InitStructure.GPIO_Pin = LB_Pin;
+    GPIO_InitStructure.GPIO_Pin = B1_Pin;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_Init(LB_GPIO_Port, &GPIO_InitStructure);
+    GPIO_Init(B1_GPIO_Port, &GPIO_InitStructure);
 
-    GPIO_InitStructure.GPIO_Pin = RB_Pin;
+    GPIO_InitStructure.GPIO_Pin = B2_Pin;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_Init(RB_GPIO_Port, &GPIO_InitStructure);
+    GPIO_Init(B2_GPIO_Port, &GPIO_InitStructure);
 
-    GPIO_InitStructure.GPIO_Pin = RHQ_Pin;
+    GPIO_InitStructure.GPIO_Pin = UP_Pin;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_Init(RHQ_GPIO_Port, &GPIO_InitStructure);
+    GPIO_Init(UP_GPIO_Port, &GPIO_InitStructure);
 
-
-    GPIO_InitStructure.GPIO_Pin = LVQ_Pin;
+    GPIO_InitStructure.GPIO_Pin = DN_Pin;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_Init(LVQ_GPIO_Port, &GPIO_InitStructure);
+    GPIO_Init(DN_GPIO_Port, &GPIO_InitStructure);
 
-
-    GPIO_InitStructure.GPIO_Pin = BH_Pin;
+    GPIO_InitStructure.GPIO_Pin = LT_Pin;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_Init(BH_GPIO_Port, &GPIO_InitStructure);
+    GPIO_Init(LT_GPIO_Port, &GPIO_InitStructure);
 
-    GPIO_InitStructure.GPIO_Pin = FV_Pin;
+    GPIO_InitStructure.GPIO_Pin = RT_Pin;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_Init(FV_GPIO_Port, &GPIO_InitStructure);
+    GPIO_Init(RT_GPIO_Port, &GPIO_InitStructure);
 
+    // leave the STROBE input/floating
+    GPIO_InitStructure.GPIO_Pin = STROBE_Pin ;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_Init(STROBE_GPIO_Port, &GPIO_InitStructure);
 
-    GPIO_InitStructure.GPIO_Pin = KBD_CLOCK_Pin ;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_OD;
-    GPIO_InitStructure.GPIO_Mode =
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;;
-    GPIO_Init(KBD_CLOCK_GPIO_Port, &GPIO_InitStructure);
-
-    GPIO_InitStructure.GPIO_Pin = KBD_DATA_Pin;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_OD;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;;
-    GPIO_Init(KBD_DATA_GPIO_Port, &GPIO_InitStructure);
-
-    GPIO_InitStructure.GPIO_Pin = KB_RESET_GPIO_Pin ;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_OD;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;;
-    GPIO_Init(KB_RESET_GPIO_Port, &GPIO_InitStructure);
-
+    // SWD pins - why to we configure them?
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_14;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_OD;
     GPIO_Init(GPIOA, &GPIO_InitStructure);
@@ -98,10 +89,12 @@ void GPIO_Config()
 
 
 
+#if 0 // amiga mouse wheel
        //NVIC EXTI IRQ setup
 
     //MOUSE PIN 5 - MMB setup for Scroll support
     //On this PCB it is Port B Pin 10
+
 	EXTI_InitTypeDef EXTI_InitStructure = {0};
 	NVIC_InitTypeDef NVIC_InitStructure = {0};
 
@@ -111,7 +104,6 @@ void GPIO_Config()
 	GPIO_InitStructure.GPIO_Pin = MB_Pin;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
 	GPIO_Init(MB_GPIO_Port, &GPIO_InitStructure);
-
 
 	GPIO_EXTILineConfig(GPIO_PortSourceGPIOB, GPIO_PinSource10);
 	EXTI_InitStructure.EXTI_Line = EXTI_Line10;
@@ -125,4 +117,5 @@ void GPIO_Config()
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&NVIC_InitStructure);
+#endif
 }

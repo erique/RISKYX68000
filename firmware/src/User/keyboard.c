@@ -718,7 +718,7 @@ static led_status_t amikb_send(uint8_t keycode, int press)
 	prev_keycode = keycode;
 
 	//send to Amiga
-
+#if 0 // amiga keyboard
 	GPIO_WriteBit(KBD_DATA_GPIO_Port, KBD_DATA_Pin, Bit_SET); // Normally KBD_DATA pin is HIGH
 
 	// pulse the data line and wait for about 100us
@@ -752,6 +752,7 @@ static led_status_t amikb_send(uint8_t keycode, int press)
 	GPIO_WriteBit(KBD_DATA_GPIO_Port, KBD_DATA_Pin, Bit_SET); // Set KBD_DATA pin
 	Delay_Us(100);
 
+#endif
 
 	return rval;
 }
@@ -759,11 +760,11 @@ static led_status_t amikb_send(uint8_t keycode, int press)
 // **************************
 void amikb_reset(void)
 {
-    GPIO_WriteBit(KB_RESET_GPIO_Port, KB_RESET_GPIO_Pin, Bit_RESET);
-    GPIO_WriteBit(KBD_CLOCK_GPIO_Port, KBD_CLOCK_Pin, Bit_RESET);
-    Delay_Ms(500);
-    GPIO_WriteBit(KBD_CLOCK_GPIO_Port, KBD_CLOCK_Pin, Bit_SET);
-    GPIO_WriteBit(KB_RESET_GPIO_Port, KB_RESET_GPIO_Pin, Bit_SET);
+    // GPIO_WriteBit(KB_RESET_GPIO_Port, KB_RESET_GPIO_Pin, Bit_RESET);
+    // GPIO_WriteBit(KBD_CLOCK_GPIO_Port, KBD_CLOCK_Pin, Bit_RESET);
+    // Delay_Ms(500);
+    // GPIO_WriteBit(KBD_CLOCK_GPIO_Port, KBD_CLOCK_Pin, Bit_SET);
+    // GPIO_WriteBit(KB_RESET_GPIO_Port, KB_RESET_GPIO_Pin, Bit_SET);
 
     prev_keycode = 0xff;
 	capslk = 0;
