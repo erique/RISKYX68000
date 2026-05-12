@@ -86,7 +86,7 @@ void MouseReadyISR(void)
     // READY falling edge = X68000 not ready (txInhibit = true)
     // READY rising edge = X68000 ready (txInhibit = false)
     bool readyState = GPIO_ReadInputDataBit(RDY_GPIO_Port, RDY_Pin);
-    txInhibit = readyState;
+    txInhibit = !readyState;
 }
 
 // ISR callback for MSCTRL signal (PB8)
